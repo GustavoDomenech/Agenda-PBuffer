@@ -18,14 +18,14 @@ void printMenu () {
     
 
 printf( "--------------------------\n"
-    "|         *MENU*         |\n"
-    "|  1- Adicionar Pessoa   |\n"
-    "|  2- Remover Pessoa     |\n"
-    "|  3- Buscar Pessoa      |\n"
-    "|  4- Listar todos       |\n"
-    "|  5- Sair               |\n"
-    "--------------------------\n"
-    "O que deseja fazer? " );
+        "|         *MENU*         |\n"
+        "|  1- Adicionar Pessoa   |\n"
+        "|  2- Remover Pessoa     |\n"
+        "|  3- Buscar Pessoa      |\n"
+        "|  4- Listar todos       |\n"
+        "|  5- Sair               |\n"
+        "--------------------------\n"
+        "O que deseja fazer? " );
 }
 
 void addPerson () {
@@ -35,7 +35,7 @@ void addPerson () {
 
     printf ( "Idade: " );
     fgets ( ( char * ) pBuffer + 1100, 100, stdin );
-    *( int * ) ( ( char * ) pBuffer + 1100 ) = atoi ( ( char * )pBuffer + 1100 );
+    *( int * ) ( ( char * ) pBuffer + 1100 ) = atoi ( ( char * ) pBuffer + 1100 );
 
 
     printf ( "Email: " );
@@ -52,12 +52,10 @@ void addPerson () {
         exit (EXIT_FAILURE);
     }
 
-    // Copia os dados para o final do buffer
     memcpy ( ( char * ) pBuffer + sizeof ( size_t ) + *( size_t * ) pBuffer, ( char * ) pBuffer + 1000, *( size_t * ) ( ( char * ) pBuffer + 1300 ) );
     memcpy ( ( char * ) pBuffer + sizeof ( size_t ) + *( size_t * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1300 ), ( char * ) pBuffer + 1100, sizeof ( int ) );
     memcpy ( ( char * ) pBuffer + sizeof ( size_t ) + *( size_t * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1300 ) + sizeof ( int ), ( char * ) pBuffer + 1200, *( size_t * ) ( ( char * ) pBuffer + 1400 ) );
 
-    // Atualiza o tamanho total do buffer
     *( size_t * ) pBuffer += *( size_t * ) ( ( char * ) pBuffer + 1500 );
 
     printf ( "Pessoa adicionada com sucesso!\n\nPressione Enter para continuar..." );
@@ -80,7 +78,7 @@ void searchPerson() {
     *( int * ) ( ( char * ) pBuffer + 1700 ) = 0;
 
     *( size_t * ) ( ( char * ) pBuffer + 1600 ) = sizeof ( size_t );
-    while (* ( size_t * ) ( ( char * ) pBuffer + 1600 ) < *( size_t * ) pBuffer + sizeof ( size_t ) ) {
+    while ( *( size_t * ) ( ( char * ) pBuffer + 1600 ) < *( size_t * ) pBuffer + sizeof ( size_t ) ) {
         if ( strcmp ( ( char * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1600 ), ( char * ) pBuffer + 1000 ) == 0 ) {
 
             printf ( "Pessoa encontrada:\n" );
@@ -95,9 +93,9 @@ void searchPerson() {
             break;
         }
 
-        *( size_t * ) ( ( char * ) pBuffer + 1600 ) += strlen ( ( char * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1600 ) ) + 1; // Nome
-        *( size_t * ) ( ( char * ) pBuffer + 1600 ) += sizeof ( int ); // Idade
-        *( size_t * ) ( ( char * )pBuffer + 1600 ) += strlen ( ( char * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1600 ) ) + 1; // Email
+        *( size_t * ) ( ( char * ) pBuffer + 1600 ) += strlen ( ( char * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1600 ) ) + 1;
+        *( size_t * ) ( ( char * ) pBuffer + 1600 ) += sizeof ( int );
+        *( size_t * ) ( ( char * )pBuffer + 1600 ) += strlen ( ( char * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1600 ) ) + 1;
     }
 
     if ( *( int * ) ( ( char * ) pBuffer + 1700 ) == 0 ) {
@@ -120,7 +118,7 @@ void removePerson () {
     ( ( char * ) pBuffer + 1000 ) [ strcspn ( ( char * ) pBuffer + 1000, "\n" ) ] = 0;
 
     *( size_t * ) ( ( char * ) pBuffer + 1600 ) = sizeof ( size_t );
-    while ( *( size_t * ) ( ( char * ) pBuffer + 1600 ) < * ( size_t * ) pBuffer + sizeof ( size_t ) ) {
+    while ( *( size_t * ) ( ( char * ) pBuffer + 1600 ) < *( size_t * ) pBuffer + sizeof ( size_t ) ) {
         if ( strcmp ( ( char * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1600 ), ( char * ) pBuffer + 1000 ) == 0 ) {
 
             *( size_t * ) ( ( char * ) pBuffer + 1700 ) = strlen ( ( char * ) pBuffer + *( size_t * ) ( ( char * ) pBuffer + 1600 ) ) + 1;
